@@ -18,10 +18,6 @@ export class GraphController {
     @Query('currentStatus', ParseIntPipe) currentStatus: number,
     @Query() transition: TransitionDto,
   ) {
-    let nextStatus: number | null = this.graphService.getNextStatus(
-      currentStatus,
-      transition,
-    );
 
     return this.graphService.getNextStatus(currentStatus, transition);
   }
