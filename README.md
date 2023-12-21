@@ -1,48 +1,118 @@
 # Graph Processing Service
 
-## Description
+Developed by Patrice Andala Opiyo - [GitHub](https://github.com/patriceandala)
 
-The following is an implementation of the backend home assignment
+## Overview
 
-## Installation
+This Graph Processing Service is a Node.js server built using the Nest.js framework. It represents and processes
+constant graph data, with each node representing a status (identified by a number), and each directed edge representing
+a set of transition rules.
 
-```bash
-$ npm install
-```
+The transitions are defined as an array `[Action, Rule, Type]`, where:
 
-## Running the app
+- `Type` can be: 'S' (SINGLE) / 'B' (BULK)
+- `Action` can be: 'S' (SEND) / 'R' (RETURN)
+- `Rule` can be: 'A' (ADMIN) / 'P' (PARTNER) / 'U' (USER) / 'C' (COURIER)
 
-```bash
-# development
-$ npm run start
+## Features
 
-# watch mode
-$ npm run start:dev
+1. **Next Status Query**: Given a transition, the service can determine the next status.
+2. **Path Finding for Bulk Transitions**: Given a transition and a bulk of statuses, the service finds the correct path
+   to the next status for the given transition.
 
-# production mode
-$ npm run start:prod
-```
+## Setup and Installation
 
-## Test
+### Prerequisites
 
-```bash
-# unit tests
-$ npm run test
+- Node.js
+- npm or yarn
 
-# e2e tests
-$ npm run test:e2e
+### Installation
 
-# test coverage
-$ npm run test:cov
-```
+1. Clone the repository from GitHub:
 
-## Support
+````bash
+git clone https://github.com/patriceandala/graph-processing-service.git
+````
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+2. Navigate to the project directory:
 
-## Stay in touch
+````bash
+cd graph-processing-service
+````
 
-- Author - [Patrice Andala Opiyo](https://kamilmysliwiec.com)
-- LinkedIn - [https://nestjs.com](https://nestjs.com/)
+3. Install the dependencies:
+
+````bash
+npm install
+````
+
+or
+
+````bash
+yarn install
+````
+
+### Running the Server
+
+Run the server locally using the following command:
+
+````bash
+npm run start
+````
+
+or
+
+````bash
+yarn start
+````
+
+### Testing the Application
+
+To run the unit tests for the service, use the command:
+
+````bash
+npm test
+````
+
+or
+
+````bash
+yarn test
+````
+
+## API Endpoints
+
+### `GET /graph/next-status`
+
+- Query Parameters:
+    - `currentStatus`: Current status (number)
+    - `transition`: Transition object (`{ action, rule, type }`)
+- Returns the next status if a valid transition exists.
+
+### `POST /graph/find-path`
+
+- Request Body:
+    - `statuses`: Array of current statuses (number[])
+    - `transition`: Transition object (`{ action, rule, type }`)
+- Returns an array representing the path of transitions.
+
+## Design Description
+
+The application is designed with modularity and scalability in mind, utilizing the robust features of Nest.js.
+The `GraphService` is responsible for managing the graph data and processing the transitions. A `GraphController` is
+used to handle HTTP requests and interact with the `GraphService`. Data transfer objects (DTOs) are used to enforce a
+consistent structure for transitions.
+
+## Contributions
+
+Feel free to fork this project and contribute. For any changes or improvements, please open an issue first to discuss
+what you would like to change.
+
+
+
+## Contact
+
+- Patrice Andala Opiyo - [GitHub](https://github.com/patriceandala)
 
 
